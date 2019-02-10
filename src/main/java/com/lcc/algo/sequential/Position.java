@@ -9,9 +9,11 @@ enum Position {
   MIDDLE,
   INNER_MIDDLE,
   MIDDLE_RIGHT,
-  RIGHT;
+  RIGHT,
+  INIT;
 
   public static Position getPosition(TimeRange first, TimeRange second){
+    if(first == null && second == null) return INIT;
     if(first.getStart().isAfter(second.getEnd()) || first.getStart().equals(second.getEnd())){
       return Position.LEFT;
     }else if((second.getStart().isBefore(first.getStart()) || second.getStart().equals(first.getStart()))

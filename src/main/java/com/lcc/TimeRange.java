@@ -22,6 +22,15 @@ public class TimeRange implements Comparable{
     return end;
   }
 
+
+  public void setStart(LocalTime start) {
+    this.start = start;
+  }
+
+  public void setEnd(LocalTime end) {
+    this.end = end;
+  }
+
   @Override
   public int compareTo(Object o) {
     if(this == o) return 0;

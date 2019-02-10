@@ -19,8 +19,8 @@ public class TimeRangeCollection {
     this.timeRanges = ranges;
   }
 
-  public List<TimeRange> minus(TimeRangeCollection subtrahend){
-    return timeRangeSubstractAlgorithm.minus(this, subtrahend);
+  public List<TimeRange> minus(TimeRangeCollection exclude){
+    return timeRangeSubstractAlgorithm.minus(this, exclude);
   }
 
   public LinkedList<TimeRange> getTimeRanges() {
