@@ -22,7 +22,6 @@ public class TimeRange implements Comparable{
     return end;
   }
 
-
   public void setStart(LocalTime start) {
     this.start = start;
   }

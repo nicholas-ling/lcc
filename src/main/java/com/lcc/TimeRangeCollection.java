@@ -1,6 +1,7 @@
 package com.lcc;
 
 import com.lcc.algo.sequential.SequentialSubstractAlgorithm;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,13 +28,8 @@ public class TimeRangeCollection {
     return timeRanges;
   }
 
-  //merge
-  public void merge(){
-
-  }
-
-  private void sort(){
-
+  public void sort(){
+    Collections.sort(timeRanges);
   }
 
 }

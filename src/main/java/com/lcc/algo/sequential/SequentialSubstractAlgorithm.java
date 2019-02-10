@@ -18,8 +18,8 @@ public class SequentialSubstractAlgorithm implements TimeRangeSubstractAlgorithm
     if(includes == null) return Collections.emptyList();
     if(excludes == null) excludes = new TimeRangeCollection();
 
-    includes.merge();
-    excludes.merge();
+    merge(includes);
+    merge(excludes);
 
     TimeRange[] include= new TimeRange[includes.getTimeRanges().size()];
     TimeRange[] exclude= new TimeRange[excludes.getTimeRanges().size()];
@@ -31,6 +31,18 @@ public class SequentialSubstractAlgorithm implements TimeRangeSubstractAlgorithm
 
   }
 
+  private void merge(TimeRangeCollection collection){
+    collection.sort();
+    TimeRange pre = null;
+    for(TimeRange current : collection.getTimeRanges()){
+      if(pre == null){
+        pre = current;
+      }else{
+
+      }
+    }
+  }
+
   private List<TimeRange> minus(TimeRange[] include, TimeRange[] exclude){
 
     List<TimeRange> partition = new LinkedList<>();
@@ -38,35 +50,45 @@ public class SequentialSubstractAlgorithm implements TimeRangeSubstractAlgorithm
     for(int i=0,j=0; i<include.length && j<exclude.length;){
       Position position = Position.getPosition(include[i], exclude[j]);
       switch (position) {
-        case LEFT:
+        case abAB:
+        case ab_AB:
           j++;
           break;
-        case LEFT_MIDDLE:
+        case aAbB:
+        case a_AbB:
           include[i].setStart(exclude[j].getEnd());
           j++;
           break;
-        case OUTTER_MIDDLE:
+        case aABb:
+        case a_ABb:
           exclude[j].setStart(include[i].getEnd());
           include[i] = null;
           i++;
           break;
-        case MIDDLE:
+        case aAb_B:
+        case a_Ab_B:
           include[i] = null;
           i++;
           j++;
           break;
-        case INNER_MIDDLE:
+        case AabB:
           partition.add(new TimeRange(include[i].getStart(), exclude[j].getStart()));
           include[i].setStart(exclude[j].getEnd());
           j++;
           break;
-        case MIDDLE_RIGHT:
+        case AaBb:
           LocalTime end = include[i].getEnd();
           include[i].setEnd(exclude[j].getStart());
           exclude[j].setStart(end);
           i++;
           break;
-        case RIGHT:
+        case Aab_B:
+          include[i].setEnd(exclude[j].getStart());
+          i++;
+          j++;
+          break;
+        case ABab:
+        case AB_ab:
           i++;
           break;
         default:

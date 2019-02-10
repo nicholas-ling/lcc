@@ -46,6 +46,21 @@ public class TimeRangeCollectionTest {
     assertThat(include.minus(exclude)).isEmpty();
   }
 
+//  @Test
+//  public void should_merge_overlap(){
+//    TimeRangeCollection collection = new TimeRangeCollection(new LinkedList(Arrays.asList(
+//        new TimeRange(LocalTime.of(1, 0), LocalTime.of(3, 0)),
+//        new TimeRange(LocalTime.of(2, 0), LocalTime.of(7, 0)),
+//        new TimeRange(LocalTime.of(8, 0), LocalTime.of(10, 0)),
+//        new TimeRange(LocalTime.of(9, 0), LocalTime.of(11, 0))
+//    )));
+//    collection.merge();
+//    assertThat(collection.getTimeRanges()).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
+//        new TimeRange(LocalTime.of(1, 0), LocalTime.of(7, 0)),
+//        new TimeRange(LocalTime.of(8, 0), LocalTime.of(11, 0))
+//    );
+//  }
+
   @Test
   public void should_still_itself_with_exclude_left(){
     TimeRangeCollection include = new TimeRangeCollection(new LinkedList(
@@ -162,6 +177,19 @@ public class TimeRangeCollectionTest {
   }
 
   @Test
+  public void should_exclude_middle_right_with_one_end_same(){
+    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(
+        Arrays.asList(new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 30)))
+    ));
+    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(9, 15), LocalTime.of(9, 30))
+    )));
+    List<TimeRange> actual = include.minus(exclude);
+    assertThat(actual.size()).isEqualTo(1);
+    assertThat(actual.get(0)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 15)));
+  }
+
+  @Test
   public void should_exclude_right(){
     TimeRangeCollection include = new TimeRangeCollection(new LinkedList(
         Arrays.asList(new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 30)))
@@ -268,5 +296,42 @@ public class TimeRangeCollectionTest {
         new TimeRange(LocalTime.of(11, 0), LocalTime.of(15, 0))
     );
   }
+
+  @Test
+  public void should_exclude_if_3_minus_2_unsorted_with_partition(){
+    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(6, 0), LocalTime.of(9, 0)),
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(3, 0)),
+        new TimeRange(LocalTime.of(10,0), LocalTime.of(15,0))
+    )));
+    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(4, 0), LocalTime.of(11, 0)),
+        new TimeRange(LocalTime.of(1, 30), LocalTime.of(2, 0))
+    )));
+    List<TimeRange> actual = include.minus(exclude);
+    assertThat(actual).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(1, 30)),
+        new TimeRange(LocalTime.of(2, 0), LocalTime.of(3, 0)),
+        new TimeRange(LocalTime.of(11, 0), LocalTime.of(15, 0))
+    );
+  }
+
+//  @Test
+//  public void should_exclude_if_3_minus_2_overlapped_with_partition(){
+//    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
+//        new TimeRange(LocalTime.of(1, 0), LocalTime.of(3, 0)),
+//        new TimeRange(LocalTime.of(2, 0), LocalTime.of(7, 0)),
+//        new TimeRange(LocalTime.of(6, 0), LocalTime.of(9, 0))
+//    )));
+//    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
+//        new TimeRange(LocalTime.of(4, 0), LocalTime.of(5, 0)),
+//        new TimeRange(LocalTime.of(8, 0), LocalTime.of(10, 0))
+//    )));
+//    List<TimeRange> actual = include.minus(exclude);
+//    assertThat(actual).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
+//        new TimeRange(LocalTime.of(1, 0), LocalTime.of(4, 0)),
+//        new TimeRange(LocalTime.of(5, 0), LocalTime.of(8, 0))
+//    );
+//  }
 
 }

@@ -3,38 +3,63 @@ package com.lcc.algo.sequential;
 import com.lcc.TimeRange;
 
 enum Position {
-  LEFT,
-  LEFT_MIDDLE,
-  OUTTER_MIDDLE,
-  MIDDLE,
-  INNER_MIDDLE,
-  MIDDLE_RIGHT,
-  RIGHT,
-  INIT;
+  abAB,
+  aAbB,
+  aABb,
+  AabB,
+  AaBb,
+  ABab,
 
-  public static Position getPosition(TimeRange first, TimeRange second){
-    if(first == null && second == null) return INIT;
-    if(first.getStart().isAfter(second.getEnd()) || first.getStart().equals(second.getEnd())){
-      return Position.LEFT;
-    }else if((second.getStart().isBefore(first.getStart()) || second.getStart().equals(first.getStart()))
-        && first.getStart().isBefore(second.getEnd())
-        && second.getEnd().isBefore(first.getEnd())){
-      return Position.LEFT_MIDDLE;
-    }else if((second.getStart().isBefore(first.getStart()) || second.getStart().equals(first.getStart()))
-        && first.getEnd().isBefore(second.getEnd())){
-      return Position.OUTTER_MIDDLE;
-    }else if((second.getStart().isBefore(first.getStart()) || second.getStart().equals(first.getStart()))
-        && first.getEnd().equals(second.getEnd())){
-      return Position.MIDDLE;
-    }else if(first.getStart().isBefore(second.getStart())
-        && second.getEnd().isBefore(first.getEnd())){
-      return Position.INNER_MIDDLE;
-    }else if(first.getStart().isBefore(second.getStart())
-        && second.getStart().isBefore(first.getEnd())
-        && first.getEnd().isBefore(second.getEnd())){
-      return Position.MIDDLE_RIGHT;
-    }else if(first.getEnd().isBefore(second.getStart()) || first.getEnd().equals(second.getStart())){
-      return Position.RIGHT;
+  ab_AB, //_means equal position
+  a_AbB,
+  a_ABb,
+  aAb_B,
+  a_Ab_B,
+  AB_ab,
+  Aab_B;
+
+
+  public static Position getPosition(TimeRange AB, TimeRange ab){
+    if(AB == null || ab == null) throw new IllegalStateException("cannot get the position if any of them is null");
+    if(ab.getEnd().isBefore(AB.getStart())) {
+      return Position.abAB;
+    }else if(AB.getStart().equals(ab.getEnd())){
+      return Position.ab_AB;
+    }else if((ab.getStart().isBefore(AB.getStart()))
+        && AB.getStart().isBefore(ab.getEnd())
+        && ab.getEnd().isBefore(AB.getEnd())){
+      return Position.aAbB;
+    }else if((ab.getStart().equals(AB.getStart()))
+        && AB.getStart().isBefore(ab.getEnd())
+        && ab.getEnd().isBefore(AB.getEnd())){
+      return Position.a_AbB;
+    }else if((ab.getStart().isBefore(AB.getStart()))
+        && AB.getEnd().isBefore(ab.getEnd())){
+      return Position.aABb;
+    }else if((ab.getStart().equals(AB.getStart()))
+        && AB.getEnd().isBefore(ab.getEnd())){
+      return Position.a_ABb;
+    }else if((ab.getStart().isBefore(AB.getStart()))
+        && AB.getEnd().equals(ab.getEnd())){
+      return Position.aAb_B;
+    }else if((ab.getStart().equals(AB.getStart()))
+        && AB.getEnd().equals(ab.getEnd())){
+      return Position.a_Ab_B;
+    }else if(AB.getStart().isBefore(ab.getStart())
+        && ab.getEnd().isBefore(AB.getEnd())){
+      return Position.AabB;
+    }else if(AB.getStart().isBefore(ab.getStart())
+        && ab.getStart().isBefore(AB.getEnd())
+        && AB.getEnd().isBefore(ab.getEnd())){
+      return Position.AaBb;
+    }else if(AB.getStart().isBefore(ab.getStart())
+        && ab.getStart().isBefore(AB.getEnd())
+        && AB.getEnd().equals(ab.getEnd())){
+      return Position.Aab_B;
+    }else if(AB.getEnd().isBefore(ab.getStart())){
+      return Position.ABab;
+    }else if(AB.getEnd().equals(ab.getStart())){
+      return Position.AB_ab;
     }else{
       throw new IllegalStateException("not a correct position");
     }
