@@ -1,8 +1,6 @@
-package com.lcc.algo.sequential;
+package com.lcc;
 
-import com.lcc.TimeRange;
-
-enum Position {
+public enum Position {
   abAB,
   aAbB,
   aABb,

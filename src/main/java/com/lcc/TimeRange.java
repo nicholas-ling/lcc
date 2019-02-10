@@ -7,6 +7,9 @@ public class TimeRange implements Comparable{
   private LocalTime start;
   private LocalTime end;
 
+
+  private boolean disabled = false;
+
   public TimeRange(LocalTime start, LocalTime end) {
     if(start==null || end==null) throw new IllegalArgumentException("start/end should not be null");
     if(!start.isBefore(end)) throw new IllegalArgumentException("start should before end");
@@ -28,6 +31,14 @@ public class TimeRange implements Comparable{
 
   public void setEnd(LocalTime end) {
     this.end = end;
+  }
+
+  public boolean isDisabled() {
+    return disabled;
+  }
+
+  public void disable() {
+    this.disabled = true;
   }
 
   @Override

@@ -1,5 +1,6 @@
 package com.lcc.algo.sequential;
 
+import com.lcc.Position;
 import com.lcc.TimeRange;
 import com.lcc.TimeRangeCollection;
 import com.lcc.TimeRangeSubstractAlgorithm;
@@ -18,8 +19,8 @@ public class SequentialSubstractAlgorithm implements TimeRangeSubstractAlgorithm
     if(includes == null) return Collections.emptyList();
     if(excludes == null) excludes = new TimeRangeCollection();
 
-    merge(includes);
-    merge(excludes);
+    includes.merge();
+    excludes.merge();
 
     TimeRange[] include= new TimeRange[includes.getTimeRanges().size()];
     TimeRange[] exclude= new TimeRange[excludes.getTimeRanges().size()];
@@ -31,17 +32,6 @@ public class SequentialSubstractAlgorithm implements TimeRangeSubstractAlgorithm
 
   }
 
-  private void merge(TimeRangeCollection collection){
-    collection.sort();
-    TimeRange pre = null;
-    for(TimeRange current : collection.getTimeRanges()){
-      if(pre == null){
-        pre = current;
-      }else{
-
-      }
-    }
-  }
 
   private List<TimeRange> minus(TimeRange[] include, TimeRange[] exclude){
 

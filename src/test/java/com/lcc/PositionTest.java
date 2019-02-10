@@ -1,7 +1,8 @@
-package com.lcc.algo.sequential;
+package com.lcc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.lcc.Position;
 import com.lcc.TimeRange;
 import java.time.LocalTime;
 import org.junit.Test;
