@@ -3,7 +3,7 @@ package com.lcc.algo.sequential;
 import com.lcc.Position;
 import com.lcc.TimeRange;
 import com.lcc.TimeRangeCollection;
-import com.lcc.TimeRangeSubstractAlgorithm;
+import com.lcc.TimeRangeSetAlgorithm;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,10 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SequentialSubstractAlgorithm implements TimeRangeSubstractAlgorithm {
+public class PositionCompareAlgorithm implements TimeRangeSetAlgorithm {
 
   @Override
-  public List<TimeRange> minus(TimeRangeCollection includes, TimeRangeCollection excludes) {
+  public List<TimeRange> substract(TimeRangeCollection includes, TimeRangeCollection excludes) {
 
     if(includes == null) return Collections.emptyList();
     if(excludes == null) excludes = new TimeRangeCollection();
@@ -24,16 +24,14 @@ public class SequentialSubstractAlgorithm implements TimeRangeSubstractAlgorithm
 
     TimeRange[] include= new TimeRange[includes.getTimeRanges().size()];
     TimeRange[] exclude= new TimeRange[excludes.getTimeRanges().size()];
-
     includes.getTimeRanges().toArray(include);
     excludes.getTimeRanges().toArray(exclude);
 
-    return minus(include, exclude);
-
+    return substract(include, exclude);
   }
 
 
-  private List<TimeRange> minus(TimeRange[] include, TimeRange[] exclude){
+  private List<TimeRange> substract(TimeRange[] include, TimeRange[] exclude){
 
     List<TimeRange> partition = new LinkedList<>();
 

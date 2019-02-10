@@ -27,14 +27,14 @@ public class TimeRangeCollectionTest {
   @Test
   public void should_still_be_itself_if_exclude_is_null(){
     TimeRangeCollection include = new TimeRangeCollection();
-    assertThat(include.minus(null)).isEmpty();
+    assertThat(include.substract(null)).isEmpty();
   }
 
   @Test
   public void should_still_be_itself_if_exclude_is_empty(){
     TimeRangeCollection include = new TimeRangeCollection();
     TimeRangeCollection exclude = new TimeRangeCollection();
-    assertThat(include.minus(exclude)).isEmpty();
+    assertThat(include.substract(exclude)).isEmpty();
   }
 
   @Test
@@ -43,7 +43,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(
         Arrays.asList(new TimeRange(LocalTime.of(9, 0), LocalTime.of(9, 30)))
     ));
-    assertThat(include.minus(exclude)).isEmpty();
+    assertThat(include.substract(exclude)).isEmpty();
   }
 
   @Test
@@ -70,7 +70,7 @@ public class TimeRangeCollectionTest {
         new TimeRange(LocalTime.of(8, 0), LocalTime.of(8, 30)),
         new TimeRange(LocalTime.of(8, 20), LocalTime.of(9, 0))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(1);
     assertThat(actual.get(0)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 0), LocalTime.of(9, 30)));
   }
@@ -83,7 +83,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(8, 0), LocalTime.of(9, 10))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(1);
     assertThat(actual.get(0)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 30)));
   }
@@ -96,7 +96,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 0), LocalTime.of(9, 10))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(1);
     assertThat(actual.get(0)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 30)));
   }
@@ -109,7 +109,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 1), LocalTime.of(9, 31))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual).isEmpty();
   }
 
@@ -121,7 +121,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 31))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual).isEmpty();
   }
 
@@ -133,7 +133,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 8), LocalTime.of(9, 30))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual).isEmpty();
   }
 
@@ -145,7 +145,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 30))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual).isEmpty();
   }
 
@@ -157,7 +157,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 15), LocalTime.of(9, 25))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(2);
     assertThat(actual.get(0)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 25), LocalTime.of(9, 30)));
     assertThat(actual.get(1)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 15)));
@@ -171,7 +171,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 15), LocalTime.of(9, 35))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(1);
     assertThat(actual.get(0)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 15)));
   }
@@ -184,7 +184,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 15), LocalTime.of(9, 30))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(1);
     assertThat(actual.get(0)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 15)));
   }
@@ -197,22 +197,22 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 35), LocalTime.of(9, 40))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(1);
     assertThat(actual.get(0)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 10), LocalTime.of(9, 30)));
   }
 
   @Test
-  public void should_minus_the_part_they_both_have(){
-    TimeRangeCollection minuend = new TimeRangeCollection(new LinkedList(
+  public void should_substract_the_part_they_both_have(){
+    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(
         Arrays.asList(new TimeRange(LocalTime.of(9, 0), LocalTime.of(10, 0)))
     ));
-    TimeRangeCollection subtrahend = new TimeRangeCollection(new LinkedList(
+    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(
         Arrays.asList(new TimeRange(LocalTime.of(9, 0), LocalTime.of(9, 30)))
     ));
-    minuend.minus(subtrahend);
-    assertThat(minuend.getTimeRanges().size()).isEqualTo(1);
-    assertThat(minuend.getTimeRanges().get(0)).isEqualToComparingFieldByField(
+    include.substract(exclude);
+    assertThat(include.getTimeRanges().size()).isEqualTo(1);
+    assertThat(include.getTimeRanges().get(0)).isEqualToComparingFieldByField(
         new TimeRange(LocalTime.of(9, 30), LocalTime.of(10, 0))
     );
   }
@@ -225,7 +225,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 0), LocalTime.of(9, 10))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual).isEmpty();
   }
 
@@ -237,13 +237,13 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 30), LocalTime.of(15, 0))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(1);
     assertThat(actual.get(0)).isEqualToComparingFieldByField(new TimeRange(LocalTime.of(9, 0), LocalTime.of(9, 30)));
   }
 
   @Test
-  public void should_exclude_if_2_minus_1(){
+  public void should_exclude_if_2_substract_1(){
     TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 0), LocalTime.of(9, 30)),
         new TimeRange(LocalTime.of(10,0), LocalTime.of(10, 30))
@@ -251,7 +251,7 @@ public class TimeRangeCollectionTest {
     TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 15), LocalTime.of(10, 15))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(2);
     assertThat(actual).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
         new TimeRange(LocalTime.of(9, 0), LocalTime.of(9, 15)),
@@ -260,7 +260,7 @@ public class TimeRangeCollectionTest {
   }
 
   @Test
-  public void should_exclude_if_2_minus_3(){
+  public void should_exclude_if_2_substract_3(){
     TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(9, 0), LocalTime.of(11, 0)),
         new TimeRange(LocalTime.of(13,0), LocalTime.of(15, 30))
@@ -270,7 +270,7 @@ public class TimeRangeCollectionTest {
         new TimeRange(LocalTime.of(10, 0), LocalTime.of(10, 15)),
         new TimeRange(LocalTime.of(12, 30), LocalTime.of(16, 0))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual.size()).isEqualTo(2);
     assertThat(actual).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
         new TimeRange(LocalTime.of(9, 15), LocalTime.of(10, 0)),
@@ -279,7 +279,7 @@ public class TimeRangeCollectionTest {
   }
 
   @Test
-  public void should_exclude_if_3_minus_2_with_partition(){
+  public void should_exclude_if_3_substract_2_with_partition(){
     TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(1, 0), LocalTime.of(3, 0)),
         new TimeRange(LocalTime.of(6, 0), LocalTime.of(9, 0)),
@@ -289,7 +289,7 @@ public class TimeRangeCollectionTest {
         new TimeRange(LocalTime.of(1, 30), LocalTime.of(2, 0)),
         new TimeRange(LocalTime.of(4, 0), LocalTime.of(11, 0))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
         new TimeRange(LocalTime.of(1, 0), LocalTime.of(1, 30)),
         new TimeRange(LocalTime.of(2, 0), LocalTime.of(3, 0)),
@@ -298,7 +298,7 @@ public class TimeRangeCollectionTest {
   }
 
   @Test
-  public void should_exclude_if_3_minus_2_unsorted_with_partition(){
+  public void should_exclude_if_3_substract_2_unsorted_with_partition(){
     TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
         new TimeRange(LocalTime.of(6, 0), LocalTime.of(9, 0)),
         new TimeRange(LocalTime.of(1, 0), LocalTime.of(3, 0)),
@@ -308,7 +308,7 @@ public class TimeRangeCollectionTest {
         new TimeRange(LocalTime.of(4, 0), LocalTime.of(11, 0)),
         new TimeRange(LocalTime.of(1, 30), LocalTime.of(2, 0))
     )));
-    List<TimeRange> actual = include.minus(exclude);
+    List<TimeRange> actual = include.substract(exclude);
     assertThat(actual).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
         new TimeRange(LocalTime.of(1, 0), LocalTime.of(1, 30)),
         new TimeRange(LocalTime.of(2, 0), LocalTime.of(3, 0)),
@@ -316,22 +316,41 @@ public class TimeRangeCollectionTest {
     );
   }
 
-//  @Test
-//  public void should_exclude_if_3_minus_2_overlapped_with_partition(){
-//    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
-//        new TimeRange(LocalTime.of(1, 0), LocalTime.of(3, 0)),
-//        new TimeRange(LocalTime.of(2, 0), LocalTime.of(7, 0)),
-//        new TimeRange(LocalTime.of(6, 0), LocalTime.of(9, 0))
-//    )));
-//    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
-//        new TimeRange(LocalTime.of(4, 0), LocalTime.of(5, 0)),
-//        new TimeRange(LocalTime.of(8, 0), LocalTime.of(10, 0))
-//    )));
-//    List<TimeRange> actual = include.minus(exclude);
-//    assertThat(actual).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
-//        new TimeRange(LocalTime.of(1, 0), LocalTime.of(4, 0)),
-//        new TimeRange(LocalTime.of(5, 0), LocalTime.of(8, 0))
-//    );
-//  }
+  @Test
+  public void should_exclude_if_3_substract_2_overlapped_with_partition(){
+    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(3, 0)),
+        new TimeRange(LocalTime.of(2, 0), LocalTime.of(7, 0)),
+        new TimeRange(LocalTime.of(6, 0), LocalTime.of(9, 0))
+    )));
+    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(4, 0), LocalTime.of(5, 0)),
+        new TimeRange(LocalTime.of(8, 0), LocalTime.of(10, 0))
+    )));
+    List<TimeRange> actual = include.substract(exclude);
+    assertThat(actual).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(4, 0)),
+        new TimeRange(LocalTime.of(5, 0), LocalTime.of(8, 0))
+    );
+  }
+
+  @Test
+  public void should_exclude_if_3_substract_3_overlapped_with_partition(){
+    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(9, 0), LocalTime.of(11, 0)),
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(3, 0)),
+        new TimeRange(LocalTime.of(2, 0), LocalTime.of(7, 0))
+    )));
+    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(8, 0), LocalTime.of(11, 0)),
+        new TimeRange(LocalTime.of(1, 30), LocalTime.of(4, 0)),
+        new TimeRange(LocalTime.of(5, 0), LocalTime.of(7, 0))
+    )));
+    List<TimeRange> actual = include.substract(exclude);
+    assertThat(actual).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(1, 30)),
+        new TimeRange(LocalTime.of(4, 0), LocalTime.of(5, 0))
+    );
+  }
 
 }

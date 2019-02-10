@@ -6,15 +6,35 @@ public class TimeRange implements Comparable{
 
   private LocalTime start;
   private LocalTime end;
-
-
   private boolean disabled = false;
 
   public TimeRange(LocalTime start, LocalTime end) {
-    if(start==null || end==null) throw new IllegalArgumentException("start/end should not be null");
-    if(!start.isBefore(end)) throw new IllegalArgumentException("start should before end");
+    validate(start, end);
     this.start = start;
     this.end = end;
+  }
+
+  private void validate(LocalTime start, LocalTime end){
+    if(start==null || end==null) throw new IllegalArgumentException("start/end should not be null");
+    if(!start.isBefore(end)) throw new IllegalArgumentException("start should always before end");
+  }
+
+  public void disable() {
+    this.disabled = true;
+  }
+
+  public void setStart(LocalTime start) {
+    validate(start, this.end);
+    this.start = start;
+  }
+
+  public void setEnd(LocalTime end) {
+    validate(this.start, end);
+    this.end = end;
+  }
+
+  public boolean isDisabled() {
+    return disabled;
   }
 
   public LocalTime getStart() {
@@ -23,22 +43,6 @@ public class TimeRange implements Comparable{
 
   public LocalTime getEnd() {
     return end;
-  }
-
-  public void setStart(LocalTime start) {
-    this.start = start;
-  }
-
-  public void setEnd(LocalTime end) {
-    this.end = end;
-  }
-
-  public boolean isDisabled() {
-    return disabled;
-  }
-
-  public void disable() {
-    this.disabled = true;
   }
 
   @Override
@@ -51,6 +55,5 @@ public class TimeRange implements Comparable{
     }
     throw new IllegalArgumentException("cannot compare object with different type");
   }
-
 
 }

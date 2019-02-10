@@ -1,6 +1,6 @@
 package com.lcc;
 
-import com.lcc.algo.sequential.SequentialSubstractAlgorithm;
+import com.lcc.algo.sequential.PositionCompareAlgorithm;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class TimeRangeCollection {
 
-  private LinkedList<TimeRange> timeRanges;
-  private TimeRangeSubstractAlgorithm timeRangeSubstractAlgorithm = new SequentialSubstractAlgorithm(); //default algo
+  private List<TimeRange> timeRanges;
+  private TimeRangeSetAlgorithm timeRangeSetAlgorithm = new PositionCompareAlgorithm(); //default algorithm
 
   public TimeRangeCollection(){
     this.timeRanges = new LinkedList<>();
@@ -21,12 +21,8 @@ public class TimeRangeCollection {
     this.timeRanges = ranges;
   }
 
-  public List<TimeRange> minus(TimeRangeCollection exclude){
-    return timeRangeSubstractAlgorithm.minus(this, exclude);
-  }
-
-  public List<TimeRange> getTimeRanges() {
-    return timeRanges.stream().filter(x->!x.isDisabled()).collect(Collectors.toList());
+  public List<TimeRange> substract(TimeRangeCollection exclude){
+    return timeRangeSetAlgorithm.substract(this, exclude);
   }
 
   public void merge(){
@@ -41,9 +37,6 @@ public class TimeRangeCollection {
           case abAB:
             break;
           case ab_AB:
-            current.setStart(pre.getStart());
-            pre.disable();
-            break;
           case aAbB:
           case a_AbB:
             current.setStart(pre.getStart());
@@ -64,7 +57,7 @@ public class TimeRangeCollection {
           case Aab_B:
           case ABab:
           case AB_ab:
-            throw new IllegalStateException("should be sort before merge");
+            throw new IllegalStateException("should be sorted before merge");
           default:
             throw new IllegalStateException("not a correct relative position");
         }
@@ -75,6 +68,10 @@ public class TimeRangeCollection {
 
   public void sort(){
     Collections.sort(timeRanges);
+  }
+
+  public List<TimeRange> getTimeRanges() {
+    return timeRanges.stream().filter(x->!x.isDisabled()).collect(Collectors.toList());
   }
 
 }

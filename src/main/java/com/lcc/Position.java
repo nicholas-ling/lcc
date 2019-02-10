@@ -1,21 +1,26 @@
 package com.lcc;
 
+
+/**
+ * the relational position between two timeRange has only 13 combinations as below
+ * AB means two point of one timeRange, A means start point, B means end point,
+ * same as ab which is another timeRange.
+ */
 public enum Position {
-  abAB,
-  aAbB,
-  aABb,
-  AabB,
-  AaBb,
-  ABab,
+  abAB, // ab sits to the left side of AB
+  aAbB, // ab intersects with AB, and the intersection is Ab
+  aABb, // ab includes AB
+  AabB, // ab is included by AB
+  AaBb, // ab intersects with AB, and the intersection is aB
+  ABab, // ab sits to the right side of AB
 
   ab_AB, //_means equal position
-  a_AbB,
-  a_ABb,
-  aAb_B,
-  a_Ab_B,
-  AB_ab,
-  Aab_B;
-
+  a_AbB, //a is coinside with A
+  a_ABb, //a is coinside with A
+  aAb_B, //b is coinside with B
+  a_Ab_B, //ab and AB is exactly the same
+  AB_ab, //B is coinside with a
+  Aab_B; //b is coinside with B
 
   public static Position getPosition(TimeRange AB, TimeRange ab){
     if(AB == null || ab == null) throw new IllegalStateException("cannot get the position if any of them is null");

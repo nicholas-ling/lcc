@@ -11,14 +11,14 @@
 //public class BracketCancelAlgorithm implements TimeRangeSubstractAlgorithm {
 //
 //  @Override
-//  public List<TimeRange> minus(List<TimeRange> includes, List<TimeRange> excludes) {
+//  public List<TimeRange> substract(List<TimeRange> includes, List<TimeRange> excludes) {
 //    if(includes == null || includes.isEmpty()) return Collections.emptyList();
 //    List<Bracket> brackets = buildBrackets(includes, excludes);
 //    Collections.sort(brackets);
-//    return minus(brackets);
+//    return substract(brackets);
 //  }
 //
-//  private List<TimeRange> minus(List<Bracket> sortedBrackets){
+//  private List<TimeRange> substract(List<Bracket> sortedBrackets){
 //
 //    List<TimeRange> ret = new LinkedList();
 //
