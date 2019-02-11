@@ -1,10 +1,9 @@
 package com.lcc;
 
-import com.lcc.algo.sequential.PositionCompareAlgorithm;
+import com.lcc.algo.position.PositionCompareAlgorithm;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TimeRangeCollection {
 
@@ -21,11 +20,13 @@ public class TimeRangeCollection {
     this.timeRanges = ranges;
   }
 
-  public List<TimeRange> substract(TimeRangeCollection exclude){
-    return timeRangeSetAlgorithm.substract(this, exclude);
+  public void substract(TimeRangeCollection exclude){
+    if(exclude == null) return;
+    timeRangeSetAlgorithm.substract(this, exclude);
   }
 
   public void merge(){
+    shuffle();
     sort();
     TimeRange pre = null;
     for(TimeRange current : timeRanges){
@@ -64,14 +65,24 @@ public class TimeRangeCollection {
         pre = current;
       }
     }
+    shuffle();
+  }
+
+  //get rid of disabled timeRange in the collection
+  private void shuffle(){
+    timeRanges.removeIf(x->x.isDisabled());
   }
 
   public void sort(){
     Collections.sort(timeRanges);
   }
 
+  public void append(List<TimeRange> timeRanges){
+    this.timeRanges.addAll(timeRanges);
+  }
+
   public List<TimeRange> getTimeRanges() {
-    return timeRanges.stream().filter(x->!x.isDisabled()).collect(Collectors.toList());
+    return this.timeRanges;
   }
 
 }
