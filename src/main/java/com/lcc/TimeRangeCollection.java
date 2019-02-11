@@ -7,13 +7,13 @@ import java.util.stream.Collectors;
 
 public class TimeRangeCollection {
 
-  private List<TimeRange> timeRanges = new LinkedList<>();
+  private LinkedList<TimeRange> timeRanges = new LinkedList<>();
   private TimeRangeSetAlgorithm timeRangeSetAlgorithm = new PositionCompareAlgorithm(); //default algorithm
 
   public TimeRangeCollection(){}
 
   //mutable, reuse the existing ranges in case it grows too big
-  public TimeRangeCollection(List<TimeRange> ranges){
+  public TimeRangeCollection(LinkedList<TimeRange> ranges){
     if(ranges == null) throw new IllegalArgumentException("time range list should not be null");
     this.timeRanges = ranges;
   }
