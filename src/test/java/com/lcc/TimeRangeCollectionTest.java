@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import org.junit.Test;
 
 public class TimeRangeCollectionTest {
@@ -52,21 +51,6 @@ public class TimeRangeCollectionTest {
     ));
     include.substract(exclude);
     assertThat(include.getTimeRanges()).isEmpty();
-  }
-
-  @Test
-  public void should_merge_overlap_unsorted(){
-    TimeRangeCollection collection = new TimeRangeCollection(new LinkedList(Arrays.asList(
-        new TimeRange(LocalTime.of(2, 0), LocalTime.of(7, 0)),
-        new TimeRange(LocalTime.of(8, 0), LocalTime.of(10, 0)),
-        new TimeRange(LocalTime.of(1, 0), LocalTime.of(3, 0)),
-        new TimeRange(LocalTime.of(9, 0), LocalTime.of(11, 0))
-    )));
-    collection.merge();
-    assertThat(collection.getTimeRanges()).usingFieldByFieldElementComparator().containsExactlyInAnyOrder(
-        new TimeRange(LocalTime.of(8, 0), LocalTime.of(11, 0)),
-        new TimeRange(LocalTime.of(1, 0), LocalTime.of(7, 0))
-    );
   }
 
   @Test

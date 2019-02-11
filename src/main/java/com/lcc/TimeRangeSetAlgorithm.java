@@ -1,7 +1,9 @@
 package com.lcc;
 
+import java.util.List;
+
 public interface TimeRangeSetAlgorithm {
 
-  void substract(TimeRangeCollection includes, TimeRangeCollection excludes);
+  void substract(List<TimeRange> includes, List<TimeRange> excludes);
 
 }

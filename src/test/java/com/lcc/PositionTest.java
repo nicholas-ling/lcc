@@ -2,8 +2,7 @@ package com.lcc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.lcc.Position;
-import com.lcc.TimeRange;
+import com.lcc.algo.position.TimeRangePosition;
 import java.time.LocalTime;
 import org.junit.Test;
 
@@ -13,84 +12,84 @@ public class PositionTest {
   public void should_return_to_the_left(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r2 =  new TimeRange(LocalTime.of(22, 2), LocalTime.of(23,0));
-    assertThat(Position.getPosition(r1, r2)).isEqualTo(Position.abAB);
+    assertThat(TimeRangePosition.getPosition(r1, r2)).isEqualTo(TimeRangePosition.abAB);
   }
 
   @Test
   public void should_return_to_the_left_same(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r3 =  new TimeRange(LocalTime.of(22, 2), LocalTime.of(23,1));
-    assertThat(Position.getPosition(r1, r3)).isEqualTo(Position.ab_AB);
+    assertThat(TimeRangePosition.getPosition(r1, r3)).isEqualTo(TimeRangePosition.ab_AB);
   }
 
   @Test
   public void should_return_to_the_left_middle(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r2 =  new TimeRange(LocalTime.of(22, 2), LocalTime.of(23,5));
-    assertThat(Position.getPosition(r1, r2)).isEqualTo(Position.aAbB);
+    assertThat(TimeRangePosition.getPosition(r1, r2)).isEqualTo(TimeRangePosition.aAbB);
   }
 
   @Test
   public void should_return_to_the_left_middle_same(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r3 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,5));
-    assertThat(Position.getPosition(r1, r3)).isEqualTo(Position.a_AbB);
+    assertThat(TimeRangePosition.getPosition(r1, r3)).isEqualTo(TimeRangePosition.a_AbB);
   }
 
   @Test
   public void should_return_to_the_outter_middle(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r2 =  new TimeRange(LocalTime.of(22, 2), LocalTime.of(23,25));
-    assertThat(Position.getPosition(r1, r2)).isEqualTo(Position.aABb);
+    assertThat(TimeRangePosition.getPosition(r1, r2)).isEqualTo(TimeRangePosition.aABb);
   }
 
   @Test
   public void should_return_to_the_outter_middle_same(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r3 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,25));
-    assertThat(Position.getPosition(r1, r3)).isEqualTo(Position.a_ABb);
+    assertThat(TimeRangePosition.getPosition(r1, r3)).isEqualTo(TimeRangePosition.a_ABb);
   }
 
   @Test
   public void should_return_to_the_middle(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r2 =  new TimeRange(LocalTime.of(22, 2), LocalTime.of(23,20));
-    assertThat(Position.getPosition(r1, r2)).isEqualTo(Position.aAb_B);
+    assertThat(TimeRangePosition.getPosition(r1, r2)).isEqualTo(TimeRangePosition.aAb_B);
   }
 
   @Test
   public void should_return_to_the_middle_same(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r3 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
-    assertThat(Position.getPosition(r1, r3)).isEqualTo(Position.a_Ab_B);
+    assertThat(TimeRangePosition.getPosition(r1, r3)).isEqualTo(TimeRangePosition.a_Ab_B);
   }
 
   @Test
   public void should_return_to_the_inner_middle(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r2 =  new TimeRange(LocalTime.of(23, 2), LocalTime.of(23,19));
-    assertThat(Position.getPosition(r1, r2)).isEqualTo(Position.AabB);
+    assertThat(TimeRangePosition.getPosition(r1, r2)).isEqualTo(TimeRangePosition.AabB);
   }
 
   @Test
   public void should_return_to_the_inner_middle_right(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r2 =  new TimeRange(LocalTime.of(23, 2), LocalTime.of(23,29));
-    assertThat(Position.getPosition(r1, r2)).isEqualTo(Position.AaBb);
+    assertThat(TimeRangePosition.getPosition(r1, r2)).isEqualTo(TimeRangePosition.AaBb);
   }
 
   @Test
   public void should_return_to_the_right(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r2 =  new TimeRange(LocalTime.of(23, 21), LocalTime.of(23,30));
-    assertThat(Position.getPosition(r1, r2)).isEqualTo(Position.ABab);
+    assertThat(TimeRangePosition.getPosition(r1, r2)).isEqualTo(TimeRangePosition.ABab);
   }
 
   @Test
   public void should_return_to_the_right_same(){
     TimeRange r1 =  new TimeRange(LocalTime.of(23, 1), LocalTime.of(23,20));
     TimeRange r3 =  new TimeRange(LocalTime.of(23, 20), LocalTime.of(23,30));
-    assertThat(Position.getPosition(r1, r3)).isEqualTo(Position.AB_ab);
+    assertThat(TimeRangePosition.getPosition(r1, r3)).isEqualTo(TimeRangePosition.AB_ab);
   }
 
 }
