@@ -1,12 +1,12 @@
-package com.lcc;
+package com.lcc.algo.position;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.lcc.algo.position.TimeRangePosition;
+import com.lcc.TimeRange;
 import java.time.LocalTime;
 import org.junit.Test;
 
-public class PositionTest {
+public class TimeRangePositionTest {
 
   @Test
   public void should_return_to_the_left(){

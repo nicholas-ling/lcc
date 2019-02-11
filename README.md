@@ -15,5 +15,5 @@
 ## Class Diagram:
 
  
-## Algorithm explain:
+## Algorithm Explain:
 

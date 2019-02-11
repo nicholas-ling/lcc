@@ -9,12 +9,9 @@ import org.junit.Test;
 
 public class TimeRangeCollectionTest {
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void should_be_empty_if_pass_null(){
-    TimeRangeCollection tc = new TimeRangeCollection(null);
-
-    assertThat(tc.getTimeRanges()).isNotNull();
-    assertThat(tc.getTimeRanges().isEmpty()).isTrue();
+    new TimeRangeCollection(null);
   }
 
   @Test
