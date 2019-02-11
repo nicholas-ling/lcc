@@ -97,7 +97,7 @@ public class PositionCompareAlgorithm implements TimeRangeSetAlgorithm {
           break;
         case aAbB:
         case a_AbB:
-          currentInclude.setStart(currentExclude.getEnd());
+          currentInclude.setStart(currentExclude.getEnd()); //LocalTime is immutable
           nextJ = true;
           break;
         case aABb:
