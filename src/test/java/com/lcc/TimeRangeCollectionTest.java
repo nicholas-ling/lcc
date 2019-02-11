@@ -342,4 +342,54 @@ public class TimeRangeCollectionTest {
     );
   }
 
+  @Test
+  public void should_exclude_if_2_substract_2_with_partition(){
+    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(4, 0)),
+        new TimeRange(LocalTime.of(5, 0), LocalTime.of(8,0))
+    )));
+    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(6, 0), LocalTime.of(7, 0)),
+        new TimeRange(LocalTime.of(2, 0), LocalTime.of(3, 0))
+    )));
+    include.substract(exclude);
+    assertThat(include.getTimeRanges()).usingFieldByFieldElementComparator().containsExactly(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(2, 0)),
+        new TimeRange(LocalTime.of(3, 0), LocalTime.of(4, 0)),
+        new TimeRange(LocalTime.of(5, 0), LocalTime.of(6, 0)),
+        new TimeRange(LocalTime.of(7, 0), LocalTime.of(8, 0))
+    );
+  }
+
+  @Test
+  public void should_exclude_if_2_substract_2_with_overlap(){
+    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(4, 0)),
+        new TimeRange(LocalTime.of(5, 0), LocalTime.of(8,0))
+    )));
+    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(2, 0)),
+        new TimeRange(LocalTime.of(6, 0), LocalTime.of(8, 0))
+    )));
+    include.substract(exclude);
+    assertThat(include.getTimeRanges()).usingFieldByFieldElementComparator().containsExactly(
+        new TimeRange(LocalTime.of(2, 0), LocalTime.of(4, 0)),
+        new TimeRange(LocalTime.of(5, 0), LocalTime.of(6, 0))
+    );
+  }
+
+  @Test
+  public void should_exclude_if_2_substract_2_with_same(){
+    TimeRangeCollection include = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(4, 0)),
+        new TimeRange(LocalTime.of(5, 0), LocalTime.of(8,0))
+    )));
+    TimeRangeCollection exclude = new TimeRangeCollection(new LinkedList(Arrays.asList(
+        new TimeRange(LocalTime.of(1, 0), LocalTime.of(4, 0)),
+        new TimeRange(LocalTime.of(5, 0), LocalTime.of(8, 0))
+    )));
+    include.substract(exclude);
+    assertThat(include.getTimeRanges()).isEmpty();
+  }
+
 }

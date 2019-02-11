@@ -61,7 +61,7 @@ public class PositionCompareAlgorithm implements TimeRangeSetAlgorithm {
         pre = current;
       }
     }
-    shuffle(timeRanges);
+    shuffle(timeRanges); //during merge, some of the TimeRanges are disabled
   }
 
   //get rid of disabled timeRange in the collection

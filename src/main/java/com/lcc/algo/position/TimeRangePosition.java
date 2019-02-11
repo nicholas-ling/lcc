@@ -4,8 +4,8 @@ package com.lcc.algo.position;
 import com.lcc.TimeRange;
 
 /**
- * the relational position between two timeRange has only 13 combinations as below
- * AB means two point of one timeRange, A means start point, B means end point,
+ * the relational position between two timeRange have and only have 13 combinations as below
+ * AB means two end point of one timeRange, A means a start point, B means a end point,
  * same as ab which is another timeRange.
  */
 public enum TimeRangePosition {
